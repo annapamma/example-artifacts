@@ -1,2 +1,5 @@
 venv/
 .idea/
+junit.xml
+node_modules/
+test-results/

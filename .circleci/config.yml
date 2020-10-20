@@ -1,38 +1,18 @@
 version: 2.1
 
-orbs:
-  node: circleci/node@4.1.0
-
 jobs:
-  publish:
-    resource_class: small
+  test:
     docker:
-      - image: circleci/node:10.16.3
+      - image: circleci/node:13.11.0
     steps:
       - checkout
-      - run:
-          name: Authenticate with registry
-          command: echo "//registry.npmjs.org/:_authToken=$NPM_TOKEN" > .npmrc
-      - run:
-          name: NPM publish
-          command: npm publish
+      - run: yarn test:ci
+      - run: mkdir test-results && mv junit.xml test-results
+      #  Please write your tests to subdirectories of your store_test_results path
+      - store_test_results:
+          path: test-results
 
 workflows:
-  test-then-publish:
+  my-workflow:
     jobs:
-      - node/test:
-          pkg-manager: yarn
-          matrix:
-            parameters:
-              version:
-                - 13.11.0
-                - 12.16.0
-                - 10.19.0
-      - publish:
-          context: npm-demo
-          requires:
-            - node/test
-          filters:
-            branches:
-              only:
-                - master
+      - test
