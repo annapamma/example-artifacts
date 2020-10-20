@@ -12,6 +12,8 @@ jobs:
       #  Please write your tests to subdirectories of your store_test_results path
       - store_test_results:
           path: test-results
+      - store_artifacts:
+          path: test-results
 
 workflows:
   my-workflow:
