@@ -8,12 +8,13 @@ jobs:
       - checkout
       - run: yarn install
       - run: yarn test:ci
-      - run: mkdir test-results && mv junit.xml test-results
+      - run: mkdir code/test-results && mv junit.xml code/test-results
       #  Please write your tests to subdirectories of your store_test_results path
       - store_test_results:
-          path: test-results
+          path: code/test-results
       - store_artifacts:
-          path: test-results
+          path: code/test-results
+          destination: prefix
 
 workflows:
   my-workflow:
