@@ -6,6 +6,7 @@ jobs:
       - image: circleci/node:13.11.0
     steps:
       - checkout
+      - run: yarn install
       - run: yarn test:ci
       - run: mkdir test-results && mv junit.xml test-results
       #  Please write your tests to subdirectories of your store_test_results path
